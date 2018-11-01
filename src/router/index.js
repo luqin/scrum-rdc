@@ -65,26 +65,26 @@ export const constantRouterMap = [
   {
     path: '',
     component: Layout,
-    redirect: 'star/dashboard',
+    redirect: 'dashboard',
     children: [
       {
-        path: 'star/dashboard',
+        path: 'dashboard',
         component: () => import('@/views/star/dashboard/index'),
-        name: 'Star-Dashboard',
-        meta: { title: 'Scrum看板', icon: 'dashboard', noCache: true }
+        name: 'Dashboard',
+        meta: { title: 'Dashboard', icon: 'dashboard', noCache: true }
       }
     ]
   },
   {
-    path: '/documentation',
+    path: '/kanban',
     component: Layout,
-    redirect: '/documentation/index',
+    redirect: '/kanban/index',
     children: [
       {
-        path: 'index',
-        component: () => import('@/views/documentation/index'),
-        name: 'Documentation',
-        meta: { title: 'documentation', icon: 'documentation', noCache: true }
+        path: '/kanban/index',
+        component: () => import('@/views/project/kanban/index'),
+        name: 'Kanban',
+        meta: { title: 'Kanban', icon: 'component', noCache: true }
       }
     ]
   }

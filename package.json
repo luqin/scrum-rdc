@@ -1,8 +1,8 @@
 {
-  "name": "vue-element-admin",
-  "version": "3.9.3",
-  "description": "A magical vue admin. Typical templates for enterprise applications. Newest development stack of vue. Lots of awesome features",
-  "author": "Pan <panfree23@gmail.com>",
+  "name": "scrum-board",
+  "version": "1.0.0",
+  "description": "scrum board",
+  "author": "luqinx@foxmail.com>",
   "license": "MIT",
   "scripts": {
     "dev": "cross-env BABEL_ENV=development webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
@@ -21,17 +21,11 @@
   },
   "keywords": [
     "vue",
-    "element-ui",
-    "admin",
-    "management-system",
-    "admin-template"
+    "element-ui"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PanJiaChen/vue-element-admin.git"
-  },
-  "bugs": {
-    "url": "https://github.com/PanJiaChen/vue-element-admin/issues"
+    "url": "git+https://github.com/luqin/scrum-rdc.git"
   },
   "dependencies": {
     "axios": "0.18.0",

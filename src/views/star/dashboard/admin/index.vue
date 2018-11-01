@@ -3,10 +3,10 @@
 
     <github-corner style="position: absolute; top: 0px; border: 0; right: 0;"/>
 
-    <panel-group @handleSetLineChartData="handleSetLineChartData"/>
+    <panel-group :sprint-card-data="sprintCardData" @handleSetLineChartData="handleSetLineChartData"/>
 
     <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
-      <burndown-chart :chart-data="lineChartData"/>
+      <sprint-burndown-chart :sprint-card-data="sprintCardData"/>
     </el-row>
 
     <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
@@ -56,7 +56,9 @@ import BarChart from './components/BarChart'
 import TransactionTable from './components/TransactionTable'
 import TodoList from './components/TodoList'
 import BoxCard from './components/BoxCard'
-import BurndownChart from './components/BurndownChart'
+import SprintBurndownChart from './components/scrum/SprintBurndownChart'
+
+import { getListBySprintId } from '@/api/sprint'
 
 const lineChartData = {
   newVisitis: {
@@ -80,7 +82,7 @@ const lineChartData = {
 export default {
   name: 'DashboardAdmin',
   components: {
-    BurndownChart,
+    SprintBurndownChart,
     GithubCorner,
     PanelGroup,
     LineChart,
@@ -93,8 +95,19 @@ export default {
   },
   data() {
     return {
+      sprintCardData: {
+        results: [],
+        totalCount: 0
+      },
       lineChartData: lineChartData.newVisitis
     }
+  },
+  created() {
+    getListBySprintId().then(res => {
+      this.sprintCardData = res.data
+    }).catch(e => {
+      console.error(e)
+    })
   },
   methods: {
     handleSetLineChartData(type) {

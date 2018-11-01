@@ -13,6 +13,5 @@ export function getDates(start, end) {
     current = current.add(1, 'd')
   }
   dates.push(end)
-  console.error(dates)
   return dates
 }
