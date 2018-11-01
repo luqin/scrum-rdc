@@ -1,5 +1,10 @@
 import request from './request'
 
+/**
+ * 卡片列表
+ *
+ * @param params
+ */
 export function getListBySprintId(params = {}) {
   return request({
     url: '/project/202912/sprint/getListBySprintId',
@@ -10,7 +15,22 @@ export function getListBySprintId(params = {}) {
       filterCondition: 'groupBy=false&order=desc',
       groupBy: false,
       order: 'desc',
-      pageSize: 200,
+      pageSize: 300,
+      akProjectId: 202912
+    }, params)
+  })
+}
+
+/**
+ * 迭代信息
+ *
+ * @param params
+ */
+export function getStat(params = {}) {
+  return request({
+    url: '/project/202912/sprint/getListBySprintId',
+    method: 'get',
+    params: Object.assign({
       akProjectId: 202912
     }, params)
   })
