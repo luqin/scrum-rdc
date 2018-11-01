@@ -67,7 +67,8 @@ export default {
           right: 10
         },
         series: [{
-          name: '理想进度', itemStyle: {
+          name: '理想进度',
+          itemStyle: {
             normal: {
               color: '#00EC00',
               lineStyle: {
@@ -77,7 +78,7 @@ export default {
               }
             }
           },
-          // smooth: true,
+          smooth: false,
           type: 'line',
           data: expectedData,
           animationDuration: 2800,
@@ -85,8 +86,8 @@ export default {
         },
         {
           name: '实际进度',
-          // smooth: true,
           type: 'line',
+          smooth: false,
           itemStyle: {
             normal: {
               color: '#3888fa',
