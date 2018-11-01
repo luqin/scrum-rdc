@@ -1,31 +1,33 @@
 <template>
   <el-row :gutter="40" class="panel-group">
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('newVisitis')">
+      <div class="card-panel" @click="handleSetLineChartData('doneStory')">
         <div class="card-panel-icon-wrapper icon-message">
           <svg-icon icon-class="money" class-name="card-panel-icon"/>
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">故事点进度</div>
-          <count-to :start-val="0" :end-val="totalActualStoryPoints" :decimals="1" :duration="3000" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val="actualStoryPoints" :decimals="1" :duration="3000" class="card-panel-num"/>
           <span class="card-panel-num">/</span>
-          <count-to :start-val="0" :end-val="totalExpectedStoryPoints" :decimals="1" :duration="3000" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val="totalStoryPoints" :decimals="1" :duration="3000" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('purchases')">
+      <div class="card-panel" @click="handleSetLineChartData('dev')">
         <div class="card-panel-icon-wrapper icon-shopping">
           <svg-icon icon-class="example" class-name="card-panel-icon"/>
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">研发进度</div>
-          <count-to :start-val="0" :end-val="0" :duration="3200" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val="devStoryPoints" :decimals="1" :duration="3000" class="card-panel-num"/>
+          <span class="card-panel-num">/</span>
+          <count-to :start-val="0" :end-val="totalStoryPoints" :decimals="1" :duration="3000" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('messages')">
+      <div class="card-panel" @click="handleSetLineChartData('doneCardCount')">
         <div class="card-panel-icon-wrapper icon-people">
           <svg-icon icon-class="shopping" class-name="card-panel-icon"/>
         </div>
@@ -42,7 +44,7 @@
       </div>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('shoppings')">
+      <div class="card-panel" @click="handleSetLineChartData('bug')">
         <div class="card-panel-icon-wrapper icon-money">
           <svg-icon icon-class="bug" class-name="card-panel-icon"/>
         </div>
@@ -75,13 +77,18 @@ export default {
   computed: {
     doneCount() {
       const { results } = this.sprintCardData
-      return sprintUtil.getDoneCards(results).length
+      return sprintUtil.getDoneCards(results).length + sprintUtil.getCancelCards(results).length
     },
-    totalActualStoryPoints() {
+    actualStoryPoints() {
       const { results } = this.sprintCardData
-      return sprintUtil.getTotalActualStoryPoints(results)
+      return sprintUtil.getDoneStoryPoints(results)
     },
-    totalExpectedStoryPoints() {
+    devStoryPoints() {
+      const { results } = this.sprintCardData
+      const done = sprintUtil.getDoneCards(sprintUtil.getDevCards(results))
+      return sprintUtil.getActualStoryPoints(done)
+    },
+    totalStoryPoints() {
       const { results } = this.sprintCardData
       return sprintUtil.getTotalExpectedStoryPoints(results)
     },

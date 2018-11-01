@@ -77,7 +77,7 @@ export default {
               }
             }
           },
-          smooth: true,
+          // smooth: true,
           type: 'line',
           data: expectedData,
           animationDuration: 2800,
@@ -85,7 +85,7 @@ export default {
         },
         {
           name: '实际进度',
-          smooth: true,
+          // smooth: true,
           type: 'line',
           itemStyle: {
             normal: {

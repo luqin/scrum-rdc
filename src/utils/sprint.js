@@ -20,6 +20,19 @@ export function getLeaf(cards) {
   })
 }
 
+/**
+ * 获得所有已完成叶子节点
+ *
+ * @param cards
+ * @returns {*}
+ */
+export function getLeafReq(cards) {
+  return cards.filter(item => {
+    const { hasSubreq } = item.columns
+    return !hasSubreq
+  })
+}
+
 export function getDoneCards(cards) {
   return cards.filter(item => ['已完成', 'Closed'].indexOf(item.columns.status) !== -1)
 }
@@ -44,18 +57,31 @@ export function getTotalExpectedStoryPoints(cards) {
 }
 
 /**
- * 获得完成的故事点
+ * 获得已交付的故事点
+ */
+export function getDoneStoryPoints(cards) {
+  const reqs = getStories(cards)
+  const doneReqs = getDoneCards(reqs)
+  return getActualStoryPoints(doneReqs)
+}
+
+/**
+ * 获得故事
+ */
+export function getStories(cards) {
+  const stories = getLeafReq(getReqs(cards))
+  // TODO 无父节点或者父节点不在本迭代的任务和缺陷
+  return stories
+}
+
+/**
+ * 获得开发完成的故事点
  *
  * @param cards
  * @returns {*}
  */
-export function getTotalActualStoryPoints(cards) {
-  let doneCards = getDoneCards(cards)
-  doneCards = getLeaf(doneCards)
-  return doneCards.reduce((result, item) => {
-    const v = getActualStoryPoints(item)
-    return result + v
-  }, 0)
+export function getDevCards(cards) {
+  return getLeaf(cards)
 }
 
 export function groupByDoneDate(cards) {
@@ -66,17 +92,26 @@ export function groupByDoneDate(cards) {
   return groups
 }
 
+export function groupByCommitDate(cards) {
+  const groups = _.groupBy(cards, 'columns.commitDate')
+  return groups
+}
+
 export function getActualStoryPointsGroupByDate(cards) {
   const groups = groupByDoneDate(cards)
   const days = Object.keys(groups).sort()
   return days.reduce((data, day) => {
-    data[day] = getTotalActualStoryPoints(groups[day])
+    data[day] = getActualStoryPoints(groups[day])
     return data
   }, {})
 }
 
-export function getActualStoryPoints(item) {
-  return parseFloat(item.columns.cf_101587) || 0
+export function getActualStoryPoints(items) {
+  items = Array.isArray(items) ? items : [items]
+  return items.reduce((result, item) => {
+    const v = parseFloat(item.columns.cf_101587) || 0
+    return result + v
+  }, 0)
 }
 
 export function getReqs(cards) {
@@ -97,64 +132,4 @@ export function filterTask(cards) {
 
 export function filterReqAndTask(card) {
   return card.filter(item => item.stamp !== 'Issue' && !item.columns.hasSubreq && !item.columns.hasSubtask && item.columns.status === '已完成')
-}
-
-export function getBurndownData(results) {
-  function filterReqAndTask(card) {
-    return card.filter(item => item.stamp !== 'Issue' && !item.columns.hasSubreq && !item.columns.hasSubtask && item.columns.status === '已完成')
-  }
-
-  const groups = _.groupBy(results, 'columns.updateDate')
-  const groupNames = Object.keys(groups).sort()
-
-  const expectedData = groupNames.map(g => {
-    return groups[g].reduce((result, item, key) => {
-      const v = parseFloat(item.columns.cf_101587) || 0
-      return result + v
-    }, 0)
-  })
-
-  // 已完成故事点
-  const actualData = groupNames.map(g => {
-    return filterReqAndTask(groups[g]).reduce((result, item, key) => {
-      const v = parseFloat(item.columns.cf_101587) || 0
-      return result + v
-    }, 0)
-  })
-
-  // 总故事点
-  const totalDonePoints = actualData.reduce((total, item) => {
-    return total + item
-  }, 0)
-
-  // 已完成需求的故事点
-  const totalDoneReq = filterReqAndTask(results)
-    .filter(item => item.stamp === 'Req')
-  const totalDoneReqPoints = totalDoneReq
-    .reduce((result, item, key) => {
-      const v = parseFloat(item.columns.cf_101587) || 0
-      return result + v
-    }, 0)
-
-  // 已完成需求、任务
-  const countData = groupNames.map(g => {
-    return filterReqAndTask(groups[g]).reduce((result, item, key) => {
-      return result + 1
-    }, 0)
-  })
-
-  const data = {
-    groups: groupNames,
-    expectedData,
-    actualData,
-    countData,
-    totalDonePoints,
-    totalDoneReqPoints,
-    totalDoneReq
-  }
-
-  console.error(groups)
-  console.error(data)
-
-  return data
 }
