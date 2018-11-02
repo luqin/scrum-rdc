@@ -68,7 +68,7 @@ export default {
 
       this.todo = getTasks(group, ['待处理', 'New'])
       this.doing = getTasks(group, ['处理中', 'ByDesign'])
-      this.doing = getTasks(group, ['待验证', 'Fixed'])
+      this.test = getTasks(group, ['待验证', 'Fixed'])
       this.done = getTasks(group, ['已完成', 'Closed'])
     }).catch(e => {
       console.error(e)

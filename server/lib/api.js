@@ -17,10 +17,16 @@
     value: true
   });
   _exports.getListBySprintId = getListBySprintId;
+  _exports.getStat = getStat;
   _request = _interopRequireDefault(_request);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+  /**
+   * 卡片列表
+   *
+   * @param params
+   */
   function getListBySprintId() {
     var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     return (0, _request.default)({
@@ -32,7 +38,24 @@
         filterCondition: 'groupBy=false&order=desc',
         groupBy: false,
         order: 'desc',
-        pageSize: 200,
+        pageSize: 300,
+        akProjectId: 202912
+      }, params)
+    });
+  }
+  /**
+   * 迭代信息
+   *
+   * @param params
+   */
+
+
+  function getStat() {
+    var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    return (0, _request.default)({
+      url: '/project/202912/sprint/getListBySprintId',
+      method: 'get',
+      params: Object.assign({
         akProjectId: 202912
       }, params)
     });

@@ -29,7 +29,7 @@
   var service = _axios.default.create({
     baseURL: 'https://rdc.aliyun.com/',
     // api 的 base_url
-    timeout: 5000 // request timeout
+    timeout: 3000 // request timeout
 
   }); // request interceptor
 
@@ -37,7 +37,7 @@
   service.interceptors.request.use(function (config) {
     // Do something before request is sent
     if (!cookie) {
-      return Promise.reject('cookie必填');
+      return Promise.reject('请设置阿里云cookie');
     }
 
     config.headers['cookie'] = cookie;
@@ -51,6 +51,7 @@
 
   service.interceptors.response.use(function (response) {
     if (_typeof(response.data) !== 'object') {
+      setCookie(null);
       return Promise.reject('阿里云效请求失败，cookie可能过期');
     }
 

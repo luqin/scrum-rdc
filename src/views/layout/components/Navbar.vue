@@ -34,7 +34,7 @@
               {{ $t('navbar.dashboard') }}
             </el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/luqin/vue-element-admin/">
+          <a target="_blank" href="https://github.com/luqin/scrum-rdc/">
             <el-dropdown-item>
               {{ $t('navbar.github') }}
             </el-dropdown-item>

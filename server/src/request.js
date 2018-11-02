@@ -5,7 +5,7 @@ let cookie = null
 // create an axios instance
 const service = axios.create({
   baseURL: 'https://rdc.aliyun.com/', // api 的 base_url
-  timeout: 5000 // request timeout
+  timeout: 3000 // request timeout
 })
 
 // request interceptor
@@ -13,7 +13,7 @@ service.interceptors.request.use(
   config => {
     // Do something before request is sent
     if (!cookie) {
-      return Promise.reject('cookie必填')
+      return Promise.reject('请设置阿里云cookie')
     }
     config.headers['cookie'] = cookie
     return config
@@ -29,6 +29,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     if (typeof response.data !== 'object') {
+      setCookie(null)
       return Promise.reject('阿里云效请求失败，cookie可能过期')
     }
     return response
