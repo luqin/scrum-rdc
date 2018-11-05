@@ -49,7 +49,7 @@
           <svg-icon icon-class="bug" class-name="card-panel-icon"/>
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">缺陷</div>
+          <div class="card-panel-text">迭代内缺陷</div>
           <count-to :start-val="0" :end-val="totalTotalIssueCount" :duration="3600" class="card-panel-num"/>
         </div>
       </div>

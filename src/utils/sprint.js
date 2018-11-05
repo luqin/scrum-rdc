@@ -67,14 +67,15 @@ export function getDoneStoryPoints(cards) {
 
 /**
  * 获得故事
- * TODO 无父节点或者父节点不在本迭代的任务和缺陷
+ * 无父节点或者父节点不在本迭代的任务和缺陷
  */
 export function getStories(cards) {
   return cards.filter(item => {
     const { hasSubreq, parentId } = item.columns
-    console.error(item, findCard(cards, parentId))
+    const parent = findCard(cards, parentId)
     return (item.stamp === 'Req' && !hasSubreq) ||
-      (item.stamp === 'Task' && (!parentId || !findCard(cards, parentId))) ||
+      (item.stamp === 'Task' && (!parentId || !parent)) ||
+      (item.stamp === 'Task' && parent && parent.stamp === 'Req' && parent.columns.hasSubreq) ||
       item.stamp === 'Issue'
   })
 }
