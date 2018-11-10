@@ -53,7 +53,7 @@ export default {
     }
   },
   created() {
-    getListBySprintId().then(res => {
+    getListBySprintId(18820).then(res => {
       this.sprintCardData = res.data
       const { results } = this.sprintCardData
 

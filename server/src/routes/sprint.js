@@ -4,5 +4,6 @@ const router = express.Router()
 
 router.post('/login', Sprint.login)
 router.get('/getListBySprintId', Sprint.getListBySprintId)
+router.get('/getSprintList', Sprint.getSprintList)
 
 export default router

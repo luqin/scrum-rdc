@@ -1,4 +1,4 @@
-import request from './request'
+import request from './utils/request'
 
 /**
  * 卡片列表
@@ -16,21 +16,6 @@ export function getListBySprintId(params = {}) {
       groupBy: false,
       order: 'desc',
       pageSize: 300,
-      akProjectId: 202912
-    }, params)
-  })
-}
-
-/**
- * 迭代信息
- *
- * @param params
- */
-export function getStat(params = {}) {
-  return request({
-    url: '/project/202912/sprint/getListBySprintId',
-    method: 'get',
-    params: Object.assign({
       akProjectId: 202912
     }, params)
   })
