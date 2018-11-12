@@ -35,7 +35,7 @@ service.interceptors.response.use(
     return response
   },
   error => {
-    console.log('request err: ', error) // for debug
+    console.log('request err: ' + error + '. URL: ' + error.config.url) // for debug
     return Promise.reject('阿里云效请求失败，cookie可能过期')
   }
 )
