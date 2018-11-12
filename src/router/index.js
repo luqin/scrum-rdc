@@ -72,7 +72,6 @@ export const constantRouterMap = [
       }
     ]
   },
-  projectRouter,
   {
     path: '/kanban',
     component: Layout,
@@ -85,7 +84,8 @@ export const constantRouterMap = [
         meta: { title: 'Kanban', icon: 'component', noCache: true }
       }
     ]
-  }
+  },
+  projectRouter
 ]
 
 export default new Router({
