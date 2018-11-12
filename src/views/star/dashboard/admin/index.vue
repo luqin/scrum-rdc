@@ -3,16 +3,18 @@
 
     <github-corner style="position: absolute; top: 0px; border: 0; right: 0;"/>
 
-    <sprint-select :value="sprintId" @change="handleSprintChange"/>
+    <div>
+      <sprint-select :value="sprintId" @change="handleSprintChange"/>
+    </div>
 
     <panel-group :sprint-card-data="sprintCardData" @handleSetLineChartData="handleSetLineChartData"/>
 
     <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
-      <sprint-burndown-chart :sprint-card-data="sprintCardData" :type="chartType"/>
+      <sprint-burndown-chart :stat="sprintStat" :sprint-card-data="sprintCardData" :type="chartType"/>
     </el-row>
 
     <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
-      <sprint-burndown-chart :sprint-card-data="sprintCardData" :type="chartType" :data-type="2"/>
+      <sprint-burndown-chart :stat="sprintStat" :sprint-card-data="sprintCardData" :type="chartType" :data-type="2"/>
     </el-row>
 
   </div>
@@ -24,7 +26,7 @@ import PanelGroup from './components/PanelGroup'
 import TransactionTable from './components/TransactionTable'
 import SprintBurndownChart from './components/scrum/SprintBurndownChart'
 
-import { getListBySprintId } from '@/api/sprint'
+import { getStat, getListBySprintId } from '@/api/sprint'
 import SprintSelect from '../../../project/components/SprintSelect'
 
 const SprintIdKey = 'SprintId'
@@ -45,6 +47,7 @@ export default {
     }
     return {
       sprintId: sprintId || 18820,
+      sprintStat: {},
       chartType: 'doneStory',
       sprintCardData: {
         results: [],
@@ -60,6 +63,11 @@ export default {
       if (!this.sprintId) {
         return
       }
+
+      getStat(this.sprintId).then(res => {
+        console.error(res)
+        this.sprintStat = res.data.results
+      })
 
       getListBySprintId(this.sprintId).then(res => {
         this.sprintCardData = res.data

@@ -66,6 +66,10 @@ export default {
       type: Object,
       required: true
     },
+    stat: {
+      type: Object,
+      required: true
+    },
     type: {
       type: String,
       required: true
@@ -80,7 +84,7 @@ export default {
   },
   computed: {
     groups() {
-      return dateUtil.getDates('2018-10-08', '2018-11-02')
+      return this.stat && this.stat.startDate ? dateUtil.getDates(this.stat.startDate, this.stat.endDate) : []
     },
     actualData() {
       const a = t[this.type]

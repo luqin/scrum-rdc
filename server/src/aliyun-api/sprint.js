@@ -38,7 +38,7 @@ export function getSprintList(params = {}) {
  */
 export function getStat(params = {}) {
   return request({
-    url: '/project/202912/sprint/getListBySprintId',
+    url: '/project/202912/sprint/getStat',
     method: 'get',
     params: Object.assign({
       akProjectId: 202912
