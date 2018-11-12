@@ -32,6 +32,8 @@ import Kanban from '@/components/Kanban'
 import { getListBySprintId } from '@/api/sprint'
 import _ from 'lodash'
 
+const SprintIdKey = 'SprintId'
+
 export default {
   name: 'SprintKanban',
   components: {
@@ -53,7 +55,7 @@ export default {
     }
   },
   created() {
-    getListBySprintId(18820).then(res => {
+    getListBySprintId(localStorage.getItem(SprintIdKey)).then(res => {
       this.sprintCardData = res.data
       const { results } = this.sprintCardData
 
@@ -100,6 +102,10 @@ export default {
     overflow: auto;
 
     .board-item {
+      height: auto;
+      min-height: 64px;
+      line-height: 24px;
+      padding: 10px;
       /*white-space: nowrap;*/
       /*overflow: hidden;*/
       /*text-overflow: ellipsis;*/
