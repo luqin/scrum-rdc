@@ -103,7 +103,7 @@ export default {
 
     .board-item {
       height: auto;
-      min-height: 64px;
+      /*min-height: 64px;*/
       line-height: 24px;
       padding: 10px;
       /*white-space: nowrap;*/
