@@ -2,6 +2,8 @@
 
 ## Installation
 
+> 推荐使用 `cnpm`
+
 ```
 cd server
 npm install
