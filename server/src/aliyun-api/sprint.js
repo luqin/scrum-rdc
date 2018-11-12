@@ -17,7 +17,7 @@ export function list(params = {}) {
 }
 
 /**
- * 迭代列表
+ * 未归档迭代列表
  *
  * @param params
  */

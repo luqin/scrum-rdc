@@ -3,7 +3,7 @@
 
     <github-corner style="position: absolute; top: 0px; border: 0; right: 0;"/>
 
-    <sprint-select/>
+    <sprint-select :value="sprintId" @change="handleSprintChange"/>
 
     <panel-group :sprint-card-data="sprintCardData" @handleSetLineChartData="handleSetLineChartData"/>
 
@@ -27,6 +27,8 @@ import SprintBurndownChart from './components/scrum/SprintBurndownChart'
 import { getListBySprintId } from '@/api/sprint'
 import SprintSelect from '../../../project/components/SprintSelect'
 
+const SprintIdKey = 'SprintId'
+
 export default {
   name: 'SprintDashboard',
   components: {
@@ -37,8 +39,12 @@ export default {
     TransactionTable
   },
   data() {
+    let sprintId = localStorage.getItem(SprintIdKey)
+    if (sprintId) {
+      sprintId = parseInt(sprintId, 10)
+    }
     return {
-      sprintId: 18820,
+      sprintId: sprintId || 18820,
       chartType: 'doneStory',
       sprintCardData: {
         results: [],
@@ -46,16 +52,28 @@ export default {
       }
     }
   },
-  created() {
-    getListBySprintId(18820).then(res => {
-      this.sprintCardData = res.data
-    }).catch(e => {
-      console.error(e)
-    })
+  mounted() {
+    this.initData()
   },
   methods: {
+    initData() {
+      if (!this.sprintId) {
+        return
+      }
+
+      getListBySprintId(this.sprintId).then(res => {
+        this.sprintCardData = res.data
+      }).catch(e => {
+        console.error(e)
+      })
+    },
     handleSetLineChartData(type) {
       this.chartType = type
+    },
+    handleSprintChange(sprintId) {
+      this.sprintId = sprintId
+      localStorage.setItem(SprintIdKey, sprintId)
+      this.initData()
     }
   }
 }

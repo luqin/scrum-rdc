@@ -21,7 +21,7 @@ function getDaysData(groupData, groups, dataType) {
 
 const t = {
   doneStory: {
-    title: '星之队-故事点交付',
+    title: '完成故事点',
     actualData(groups, tasksData, dataType) {
       const stories = sprintUtil.getStories(tasksData.results)
       const doneStories = sprintUtil.getDoneCards(stories)
