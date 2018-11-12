@@ -1,13 +1,6 @@
 // import formidable from 'formidable'
 import * as api from '../../aliyun-api'
 
-export function login(req, res, next) {
-  res.send({
-    status: 1,
-    success: '登录成功'
-  })
-}
-
 export function getSprintList(req, res, next) {
   return api.sprint.getSprintList(req.query)
     .then((response) => {

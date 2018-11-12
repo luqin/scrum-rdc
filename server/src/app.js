@@ -6,7 +6,7 @@ import session from 'express-session'
 import path from 'path'
 import history from 'connect-history-api-fallback'
 import chalk from 'chalk'
-import { setCookie } from './request'
+import { setCookie } from './aliyun-api/utils/request'
 
 const app = express()
 

@@ -1,9 +1,8 @@
 import express from 'express'
-import * as Sprint from '../controller/sprint'
+import * as sprint from '../controller/sprint'
 const router = express.Router()
 
-router.post('/login', Sprint.login)
-router.get('/getListBySprintId', Sprint.getListBySprintId)
-router.get('/getSprintList', Sprint.getSprintList)
+router.get('/getListBySprintId', sprint.getListBySprintId)
+router.get('/getSprintList', sprint.getSprintList)
 
 export default router

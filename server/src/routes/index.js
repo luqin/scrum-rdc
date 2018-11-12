@@ -1,5 +1,7 @@
 import sprint from './sprint'
+import auth from './auth'
 
 export default app => {
-  app.use('/sprint', sprint)
+  app.use('/api/auth', auth)
+  app.use('/api/sprint', sprint)
 }
