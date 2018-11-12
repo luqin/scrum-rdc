@@ -1,5 +1,5 @@
 <template>
-  <el-select v-model="value8" filterable placeholder="请选择">
+  <el-select v-model="value8" filterable placeholder="请选择迭代">
     <el-option
       v-for="item in options"
       :key="item.value"
@@ -37,7 +37,13 @@ export default {
   },
   mounted() {
     getSprintList().then(res => {
-      this.sprintCardData = res.data
+      this.sprintList = res.data
+      this.options = this.sprintList.results.map(item => {
+        return {
+          value: item.id,
+          label: item.name
+        }
+      })
     }).catch(e => {
       console.error(e)
     })
