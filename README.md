@@ -1,4 +1,4 @@
-# Scrum For RDC
+# Scrum Dashboard
 
 ## Installation
 
