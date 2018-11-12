@@ -1,5 +1,5 @@
-import v1 from './sprint'
+import sprint from './sprint'
 
 export default app => {
-  app.use('/sprint', v1)
+  app.use('/sprint', sprint)
 }
